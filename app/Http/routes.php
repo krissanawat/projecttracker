@@ -12,7 +12,7 @@
  */
 
 Route::get('/', 'UserController@dashboard');
-Route::get('/dashboard', 'UserController@dashboard');
+Route::get('/dashboard',['as'=>'dashboard','uses'=>'UserController@dashboard']);
 Route::get('test',function(){
 
     $data = [
@@ -47,7 +47,7 @@ Route::group(['prefix' => 'project'], function() {
     Route::any('/delete/{id}', ['as' => 'project.delete', 'uses' => 'ProjectController@delete']);
 });
 Route::group(['prefix' => 'appointment'], function() {
-
+ Route::any('/postponse', ['as' => 'appointment.postponse', 'uses' => 'AppointmentController@postponse']);
     Route::any('/', ['as' => 'appointment.index', 'uses' => 'AppointmentController@index']);
     Route::any('/create', ['as' => 'appointment.create', 'uses' => 'AppointmentController@create']);
     Route::any('/edit/{id}', ['as' => 'appointment.edit', 'uses' => 'AppointmentController@edit']);

@@ -22,7 +22,7 @@
        
         <!--Jquery GanttView-->
         <script src="/js-lib/jquery.ganttView/lib/date.js"></script>
-        @if(Request::is('*/dashboard'))
+        @if(Request::is('*/gantt'))
         <script src="/js-lib/jquery.ganttView/lib/jquery-1.4.2.js"></script>
 
         @else
@@ -199,7 +199,7 @@ $('.clockpicker').clockpicker({donetext: 'เลือก', afterDone: function 
 $('.singledatetime-picker').daterangepicker({// เลือกแบบอันเดียวและมีเวลาด้วย
     singleDatePicker: true,
     timePicker: true,
-    format: 'YYYY-DD-MM hh:mm:ss ',
+    format: 'YYYY-DD-MM ',
     showDropdowns: true,
     timePickerIncrement: 5,
     separator: ' - ',
@@ -237,7 +237,7 @@ $('.daterange').daterangepicker({
     buttonClasses: ['btn btn-default'],
     applyClass: 'btn-small btn-primary',
     cancelClass: 'btn-small',
-    format: 'MM/DD/YYYY H:mm:ss',
+    format: 'MM/DD/YYYY',
     separator: ' - ',
     locale: {
         applyLabel: 'เลือก',

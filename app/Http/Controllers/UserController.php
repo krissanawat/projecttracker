@@ -19,11 +19,7 @@ class UserController extends Controller {
       | controllers, you are free to modify or remove it as you desire.
       |
      */
-public function __construct()
-	{
-		 $this->middleware('auth');
-	}
-  
+
 
     /**
      * Create a new controller instance.
@@ -46,10 +42,8 @@ public function update_profile(){
         $user->profile_image = $filename;
    endif;
         
-        $user->start_working_time = Input::get('start_working_time');
-        $user->stop_working_time = Input::get('stop_working_time');
-        $user->start_rest_time = Input::get('start_rest_time');
-        $user->stop_rest_time = Input::get('stop_rest_time');
+        $user->working_time = Input::get('working_time');
+        $user->non_working_time = Input::get('non_working_time');
         $user->save();
     return Redirect::back()->with('success','แก้ไขข้อมูลเรียบร้อย');
 }
@@ -59,7 +53,12 @@ public function update_profile(){
      * @return Response
      */
     public function dashboard() {
-        return view('dashboard');
+        if(Auth::user()){
+            return view('dashboard');
+        }  else {
+            return redirect()->route('getlogin');
+         }
+        
     }
 
     public function register() {
@@ -86,7 +85,7 @@ public function update_profile(){
     }
     public function logout(){
         Auth::logout();
-        Redirect::route('getlogin')->with('success','ออกจากระบบเรียบร้อย');
+        Redirect::route('dashboard')->with('success','ออกจากระบบเรียบร้อย');
     }
 
 }

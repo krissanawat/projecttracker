@@ -11,7 +11,7 @@ class Appointment extends Model  {
      * @var string
      */
     protected $table = 'appointment';
-    protected $fillable = ['title','detail','due_date','adviser_id','status','project_id','location'];
+    protected $fillable = ['title','detail','approve','due_date','adviser_id','status','project_id','location'];
     /**
      * The attributes that are mass assignable.
      *

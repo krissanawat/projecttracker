@@ -71,14 +71,22 @@ class AppointmentController extends Controller {
     public function update() {
         // ddd(Input::all());
         $appointments = Appointment::with('project.student')->find(Input::get('id'));
-        ddd($appointments->project->student->id);
+//        ddd($appointments->project->student[0]->id);
             if(Input::get('approve') == 0):
-//                foreach ($appointments):
-                
-//                endforeach;
-            $this->notification('appointment', 'สามารถเข้าพบอาจารย์'.Auth::user()->first_name.' ได้', $student->id);
+               
             endif;
-        $appointments->update(Input::all());
+        $appointments->update(Input::all()); 
+//        ddd($appointments->approve);
+        if($appointments->approve == 'เข้าพบได้'):
+            
+            foreach ($appointments->project->student as $student):
+                $this->notification('appointment', 'สามารถเข้าพบอาจารย์'.Auth::user()->first_name.' ได้'
+                        , $student->id,'สถานที่นัดพบ '.$appointments->location.
+                        ' เวลา '.$appointments->due_date.' รายละเอียดเพิ่มเติม :'.$appointments->detail);
+            
+                endforeach;
+        endif;
+        
         return Redirect::back()->with('success', 'การแก้ไขเสร็จเรียบร้อย');
     }
 
@@ -87,7 +95,16 @@ class AppointmentController extends Controller {
         $appointments->delete();
         return View::make('appointment.edit')->with('warning', 'การลบเสร็จเรียบร้อย');
     }
-    public function change_apoinment_date(){
+    public function postponse(){
+        if(Request::isMethod('post')):
+            $postponse = \App\Postponse::create(Input::all());
+            foreach ($postponse->appointment->project->student as $student):
+        $this->notification('postponse','เลื่อนการนัดหมาย', $student->id,'เลื่อนไปเป็นวันที่ '.
+        $this->DateThai($postponse->timetogo).' สถานที่ '.$postponse->location.' เพราะ '.$postponse->reason);
+            endforeach;
+            return redirect()->back()->with('success','แจ้งเตือนไปยังสมาชิกในกลุ่มแล้ว');
+        endif;
         
+        return view('appointment.postponse');
     }
 }

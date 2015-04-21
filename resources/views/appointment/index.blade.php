@@ -45,6 +45,10 @@
                                             <td>{!! $appointment->due_date !!}</td>
                                             <td>{!! $appointment->status !!}</td>
                                             <td>
+                                                
+                         <a  target="_blank" href="{{ route('appointment.postponse',['id'=>$appointment->id])}}" 
+                             class="btn btn-primary"><span class="glyphicon glyphicon-alert"></span> เลือนนัด</a>
+                                              
                                             <a href="{{ route('appointment.edit',$appointment->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
                                             <a  href="#myModal" data-url="{{ route('appointment.delete',$appointment->id)}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
                                             </td>

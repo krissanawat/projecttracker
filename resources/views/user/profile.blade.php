@@ -19,6 +19,30 @@
                         </div>
                      
                         <!-- Text input-->
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">ชื่อ</label>  
+                            <div class="col-md-4"> 
+                                <input type="text" name="first_name" class="form-control" id="profile" >
+
+                            </div>
+
+                        </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">นามสกลุ</label>  
+                            <div class="col-md-4"> 
+                                <input type="text" name="last_name" class="form-control" id="profile" >
+
+                            </div>
+
+                        </div>
+                           <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">email</label>  
+                            <div class="col-md-4"> 
+                                <input type="email" name="email" class="form-control" id="profile" >
+
+                            </div>
+
+                        </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">รูประจำตัว</label>  
                             <div class="col-md-4"> 
@@ -30,35 +54,25 @@
 
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="woringtime">ช่วงเวลาทำงาน</label>  
+                            <label class="col-md-4 control-label" for="woringtime">เวลาทำงาน</label>  
                             <div class="col-md-3">
-                                <input name="start_working_time" value="{{ Auth::user()->start_working_time}}"
-                                class=" clockpicker form-control input-md" id="start_working_time" type="text" placeholder="เริ่ม">
+                                <input name="working_time" value="{{ Auth::user()->working_time}}"
+                                class="  form-control input-md" id="working_time" type="text" placeholder="">
 
                             </div>
-                             <label class="col-md-1 control-label" for="woringtime">ถึง</label>  
-                                <div class="col-md-3">
-                                <input name="stop_working_time"  value="{{ Auth::user()->stop_working_time}}"
-                                 class=" clockpicker form-control input-md" id="stop_working_time" type="text" placeholder="หยุด">
-
-                            </div>
+                         
                         </div>
+                <div class="form-group">
+                            <label class="col-md-4 control-label" for="woringtime">เวลาพัก</label>  
+                            <div class="col-md-3">
+                                <input name="non_working_time" value="{{ Auth::user()->non_working_time}}"
+                                class="  form-control input-md" id="non_working_time" type="text" placeholder="">
 
+                            </div>
+                         
+                        </div>
                         <!-- Text input-->
-                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="start_rest_time">ช่วงเวลาพัก</label>  
-                            <div class="col-md-3">
-                                <input name="start_rest_time" value="{{ Auth::user()->start_rest_time}}"
-                                class=" clockpicker form-control input-md" id="start_rest_time" type="text" placeholder="เริ่ม">
-
-                            </div>
-                             <label class="col-md-1 control-label" for="stop_rest_time">ถึง</label>  
-                                <div class="col-md-3">
-                                <input name="stop_rest_time" value="{{ Auth::user()->stop_rest_time}}"
-                                class=" clockpicker form-control input-md" id="stop_rest_time" type="text" placeholder="หยุด">
-
-                            </div>
-                        </div>
+                       
                          <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput"></label>  
                             <div class="col-md-4"> 
