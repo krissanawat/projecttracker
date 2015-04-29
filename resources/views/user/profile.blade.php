@@ -17,33 +17,7 @@
                             </div>
 
                         </div>
-                     
-                        <!-- Text input-->
-                          <div class="form-group">
-                            <label class="col-md-4 control-label" for="textinput">ชื่อ</label>  
-                            <div class="col-md-4"> 
-                                <input type="text" name="first_name" class="form-control" id="profile" >
-
-                            </div>
-
-                        </div>
-                          <div class="form-group">
-                            <label class="col-md-4 control-label" for="textinput">นามสกลุ</label>  
-                            <div class="col-md-4"> 
-                                <input type="text" name="last_name" class="form-control" id="profile" >
-
-                            </div>
-
-                        </div>
-                           <div class="form-group">
-                            <label class="col-md-4 control-label" for="textinput">email</label>  
-                            <div class="col-md-4"> 
-                                <input type="email" name="email" class="form-control" id="profile" >
-
-                            </div>
-
-                        </div>
-                        <div class="form-group">
+                         <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput">รูประจำตัว</label>  
                             <div class="col-md-4"> 
                                 <input type="file" name="profile" class="form-control" id="profile" >
@@ -51,7 +25,33 @@
                             </div>
 
                         </div>
+                        <!-- Text input-->
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">ชื่อ</label>  
+                            <div class="col-md-4"> 
+                                <input type="text" name="first_name"  value="{{ Auth::user()->first_name }}"class="form-control" id="profile" >
 
+                            </div>
+
+                        </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">นามสกลุ</label>  
+                            <div class="col-md-4"> 
+                                <input type="text" name="last_name"  value="{{ Auth::user()->last_name}}"  class="form-control" id="profile" >
+
+                            </div>
+
+                        </div>
+                           <div class="form-group">
+                            <label class="col-md-4 control-label" for="textinput">email</label>  
+                            <div class="col-md-4"> 
+                                <input type="email" value="{{ Auth::user()->email}}" name="email" class="form-control" id="profile" >
+
+                            </div>
+
+                        </div>
+                    
+@if(Auth::user()->role == 'student')
                         <!-- Text input-->
                         <div class="form-group">
                             <label class="col-md-4 control-label" for="woringtime">เวลาทำงาน</label>  
@@ -72,7 +72,7 @@
                          
                         </div>
                         <!-- Text input-->
-                       
+       @endif                
                          <div class="form-group">
                             <label class="col-md-4 control-label" for="textinput"></label>  
                             <div class="col-md-4"> 
@@ -94,6 +94,6 @@
 @section('specific_script')
 <script>
     
-    $("#profile").fileinput({showCaption: false,showUpload: false, maxFileCount: 1, mainClass: "input-group-lg"});
+    $("input[type=file]").fileinput({showCaption: false,showUpload: false, maxFileCount: 1, mainClass: "input-group-lg"});
     </script>
 @stop

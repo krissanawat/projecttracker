@@ -13,26 +13,13 @@
 
 Route::get('/', 'UserController@dashboard');
 Route::get('/dashboard',['as'=>'dashboard','uses'=>'UserController@dashboard']);
+
 Route::get('test',function(){
-
-    $data = [
-        'senderName' => 'ABC Widget', // Company name
-        'reminder' => 'You’re receiving this because you’re an awesome ABC Widgets customer or subscribed via <a href="http://www.abcwidgets.com/" style="color: #a6a6a6">our site</a>',
-        'unsubscribe' => null,
-        'address' => '87 Street Avenue, California, USA',
-
-        'twitter' => 'http://www.facebook.com/abcwidgets',
-        'facebook' => 'http://twitter.com/abcwidgets',
-        'flickr' => 'http://www.flickr.com/photos/abcwidgets'
-    ];
-
-    Mail::queue('emails.confirm', $data, function($message)
-    {
-        $message->to('taqmaninw@gmail.com', 'John Smith')->subject('Welcome!');
-    });
-
+    $data = ['title'=>'','form'=>''];
+    \Mail::send('emails.notification',$data,function($message) {
+                $message->to('taqmaninw@gmail.com','retetr')->subject('การแจ้งเตือน จาก PAPM!!');
+            });
 });
-
 Route::group(['prefix' => 'notification'], function() {
 
     Route::any('/', ['as' => 'notification.index', 'uses' => 'NotificationController@index']);
@@ -55,6 +42,8 @@ Route::group(['prefix' => 'appointment'], function() {
     Route::any('/delete/{id}', ['as' => 'appointment.delete', 'uses' => 'AppointmentController@delete']);
 });
 Route::group(['prefix' => 'user'], function() {
+    Route::get('/activate',['as'=>'activate','uses'=>'UserController@activate']);
+     Route::get('/sendemailagain/{id}',['as'=>'sendemailagain','uses'=>'UserController@sendemailagain']);
     Route::any('/register', ['as' => 'register', 'uses' => 'UserController@register']);
     Route::get('/getlogin', ['as' => 'getlogin', 'uses' => 'UserController@getlogin']);
     Route::get('/logout', ['as' => 'logout', 'uses' => 'UserController@logout']);
@@ -72,7 +61,8 @@ Route::group(['prefix' => 'task'], function() {
 });
 
 Route::group(['prefix' => 'activity'], function() {
-     Route::any('/ganttdata', ['as' => 'ganttdata', 'uses' => 'ActivityController@ganttdata']);
+    
+    Route::any('/ganttdata', ['as' => 'ganttdata', 'uses' => 'ActivityController@ganttdata']);
     Route::any('/', ['as' => 'activity.index', 'uses' => 'ActivityController@index']);
     Route::get('/getcreate/{id}', ['as' => 'activity.getcreate', 'uses' => 'ActivityController@getCreate']);
     Route::post('/postcreate', ['as' => 'activity.postcreate', 'uses' => 'ActivityController@postCreate']);
@@ -90,6 +80,9 @@ Route::group(['prefix' => 'task'], function() {
     Route::any('/edit/{id}', ['as' => 'task.edit', 'uses' => 'TaskController@edit']);
     Route::any('/update', ['as' => 'task.update', 'uses' => 'TaskController@update']);
     Route::any('/delete/{id}', ['as' => 'task.delete', 'uses' => 'TaskController@delete']);
+    Route::get('change_task_status',['as'=>'change_task_status','uses'=>'TaskController@change_task_status']);
+     Route::get('change_approve_status',['as'=>'change_approve_status','uses'=>'TaskController@change_approve_status']);
+    
 });
 Route::group(['prefix' => 'notification'], function() {
     Route::any('/', ['as' => 'notification.index', 'uses' => 'NotificationController@index']);

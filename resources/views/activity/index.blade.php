@@ -28,14 +28,13 @@
                                             <th>เริ่ม</th>
                                             <th>กำหนดเสร็จ</th>
                                             <th>วันที่เสร็จ</th>
-                                            <th>สถานะ</th>
-                                            <th>อนุญาตให้ทำ</th>
                                             <th>จัดการ</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @if($activitys)
                                         @foreach($activitys as $key => $activity)
+                                        
                                         <tr  class="clickable" id="row1" data-target=".row{!!$key!!}" data-toggle="collapse">
                                             <td>{!! $activity->name !!}</td>
                                             <td>
@@ -46,9 +45,8 @@
                                             <td>{!! $activity->start_time !!}</td>
                                             <td>{!! $activity->stop_time !!}</td>
                                              <td>{!! $activity->completed_at !!}</td>
-                                            <td>{!! $activity->status !!}</td>
-                                              <td>{!! $activity->approve !!}</td>
-                                            <td>
+                             
+                                             <td>
                                                 <a  target="_blank" href="{{ route('activity.edit',$activity->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
                                                 <a  href="#myModal" data-url="{{ route('activity.delete',$activity->id)}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
                                             </td>
@@ -91,7 +89,7 @@
                                                 <label class="col-md-4 control-label" for="name">Activity</label>  
                                                 <div class="col-md-6">
                                                     <input id="name" name="name" type="text"  class="form-control input-md">
-
+                                                        
                                                 </div>
 
                                             </div>
@@ -123,6 +121,20 @@
 
 <script type="text/javascript">
     $('.chosen').chosen();
+
+     $('.approve').change(function(){
+         $.blockUI({ message: '<h2><img src="/img/status-loading.gif" /> รอสักครู่...</h2>' });
+      var id = $(this).attr('data');
+      var val = $(this).val();
+      $.ajax({
+         method :'get',
+         url :"{!! route('change_approve_status') !!}",
+         data :{id:id,status:val},
+         success:function(data){
+             $.unblockUI();
+         }
+      });
+    });
 </script>
 
 @stop

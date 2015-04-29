@@ -50,9 +50,9 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="stop">วันที่สิ้นสุด</label>  
+                                <label class="col-md-4 control-label" for="finsih">วันที่สิ้นสุด</label>  
                                 <div class="col-md-4">
-                                    <input id="stop" name="stop" value="{{ $projects->stop }}"type="text" placeholder="" class=" singledatepicker form-control input-md">
+                                    <input id="finsih" name="finish" value="{{ $projects->finish }}"type="text" placeholder="" class=" singledatepicker form-control input-md">
 
                                 </div>
                             </div>
@@ -66,7 +66,7 @@
                                           {!! Form::select('secondary_adviser_id',App\User::where('role','adviser')->whereNotIn('id',[Auth::user()->id])->lists('first_name','id')
                                        ,$projects->secondary_adviser_id ,['class'=>'form-control input-md','id'=>'coadviser-select']) !!}
                                         <span class="input-group-addon">
-                                           <i class="icon-search"></i>
+                                           <i class="glyphicon glyphicon-search"></i>
                                         </span>
                                     </div>
                                 </div>
@@ -82,7 +82,7 @@
      {!! $dropdown !!}
        </select>   
                                         <span class="input-group-addon">
-                                         <i class="icon-search"></i>
+                                         <i class="glyphicon glyphicon-search"></i>
                                         </span>
                                     </div>
                                 </div>

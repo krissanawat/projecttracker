@@ -33,18 +33,19 @@ class NotificationController extends Controller {
 	 */
 	public function index()
 	{
+            
+                
             if(Input::has('status')){
                 if(Input::get('status') == 0){
                     $notification = Notification::Where('reciver_id',Auth::user()->id)->orWhere('is_read',0)->get();
                 
                 }else if(Input::get('status') == 1){
                     $notification = Notification::Where('reciver_id',Auth::user()->id)->orWhere('is_read',1)->get();
-                }else{
-                   $notification = Notification::Where('sender_id',Auth::user()->id)->get();
-                   
-                }
-            }
-            $notification = Notification::Where('reciver_id',Auth::user()->id)->get();
+                }else if(Input::get('status') == 2){
+                    $notification = Notification::where('sender_id',Auth::user()->id)->get();
+            
+                } 
+            }$notification = Notification::where('reciver_id',Auth::user()->id)->get();
          return view('notification.index')->with('notification',$notification);
 	}
         

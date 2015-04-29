@@ -47,3 +47,15 @@
     </div>
 </div>
 @endif
+
+
+@if ($message = Session::get('danger'))
+<div class="col-md-12">
+    <div class="alert alert-danger">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <i class="icon-dark"></i>
+        <strong>Info: </strong>
+        {{ $message }}
+    </div>
+</div>
+@endif

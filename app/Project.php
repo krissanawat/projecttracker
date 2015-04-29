@@ -1,9 +1,8 @@
 <?php
 
 namespace App;
-use Illuminate\Database\Eloquent\Model;
-
-class Project extends Model  {
+use Carbon\Carbon;
+class Project extends Elegant  {
 
     /**
      * The database table used by the model.
@@ -17,8 +16,27 @@ class Project extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'detail', 'start','status','stop','primary_adviser_id','secondary_adviser_id'];
-
+    protected $fillable = ['name', 'detail', 'start','status','finish','primary_adviser_id','secondary_adviser_id'];
+   public function setStartAttribute($value)
+    {
+       
+        $this->attributes['start'] = \DateTime::createFromFormat('Y-m-d',$value);
+//        ddd($this->attributes['start']);
+    } 
+    public function setFinishAttribute($value)
+    {
+        $this->attributes['finish'] = \DateTime::createFromFormat('Y-m-d',$value);
+    }
+    
+//    public function getStartAttribute($value)
+//    {
+//       return $this->datethai($value);
+//    }
+//    
+//    public function getFinishAttribute($value)
+//    {
+//       return $this->datethai($value);
+//    }
     public function student(){
             return $this->hasMany('App\User','project_id')->where('role','student');
     }

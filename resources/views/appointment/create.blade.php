@@ -50,14 +50,34 @@
 
                                 </div>
                             </div>
+                            @if(Auth::user()->role == 'student')
+                    <div class="form-group">
+                                <label class="col-md-4 control-label" for="co-adviser">นัดกับ</label>
+                                <div class="col-md-5">
 
+                                    <div class="input-group">
+<?php 
+$user = App\User::where('project_id',Auth::user()->project_id)
+        ->where('role','adviser')->lists('first_name','id');
+
+?>                                      {!! Form::hidden('project_id',Auth::user()->project_id)!!}
+                                        {!! Form::hidden('student_id',Auth::user()->id)!!}
+        {!! Form::select('adviser_id',$user,'',['class'=>'form-control input-md','id'=>'appoint_group']) !!}
+                                        <span class="input-group-addon">
+                                           <i class="icon-move"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            @endif
+                             @if(Auth::user()->role == 'adviser')
                             <!-- Search input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="co-adviser">นัดกับกลุ่ม</label>
                                 <div class="col-md-5">
 
                                     <div class="input-group">
-
+{!! Form::hidden('adviser_id',Auth::user()->id)!!}
         {!! Form::select('project_id',$project,'',['class'=>'form-control input-md','id'=>'appoint_group']) !!}
                                         <span class="input-group-addon">
                                            <i class="icon-move"></i>
@@ -65,7 +85,7 @@
                                     </div>
                                 </div>
                             </div>
-
+  @endif
                             <!-- Button -->
                             <div class="form-group">
                              

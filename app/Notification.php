@@ -20,7 +20,4 @@ class Notification extends Model
     {
         return $this->belongsTo('App\User','reciver_id');
     }
-    function push_email(){
-        
-    }
 }

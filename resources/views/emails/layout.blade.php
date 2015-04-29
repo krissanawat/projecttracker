@@ -22,8 +22,7 @@
                 <div class="content">
                 <table bgcolor="#999999">
                     <tr>
-                        <td><img src="http://placehold.it/200x50/" /></td>
-                        <td align="right"><h6 class="collapse">Basic</h6></td>
+                        <td><img src="http://i.imgur.com/xQto42J.png" /></td>
                     </tr>
                 </table>
                 </div>
@@ -50,33 +49,8 @@
                             <tr>
                                 <td>
                                     
-                                    <!-- column 1 -->
-                                    <table align="left" class="column">
-                                        <tr>
-                                            <td>                
-                                                
-                                                <h5 class="">Connect with Us:</h5>
-                                                <p class=""><a href="#" class="soc-btn fb">Facebook</a> <a href="#" class="soc-btn tw">Twitter</a> <a href="#" class="soc-btn gp">Google+</a></p>
-                        
-                                                
-                                            </td>
-                                        </tr>
-                                    </table><!-- /column 1 -->  
                                     
-                                    <!-- column 2 -->
-                                    <table align="left" class="column">
-                                        <tr>
-                                            <td>                
-                                                                            
-                                                <h5 class="">Contact Info:</h5>                                             
-                                                <p>Phone: <strong>408.341.0600</strong><br/>
-                Email: <strong><a href="emailto:hseldon@trantor.com">hseldon@trantor.com</a></strong></p>
-                
-                                            </td>
-                                        </tr>
-                                    </table><!-- /column 2 -->
-                                    
-                                    <span class="clear"></span> 
+                                  
                                     
                                 </td>
                             </tr>
@@ -93,12 +67,12 @@
 </table><!-- /BODY -->
 
 <!-- FOOTER -->
-<table class="footer-wrap">
+<!--<table class="footer-wrap">
     <tr>
         <td></td>
         <td class="container">
             
-                <!-- content -->
+                 content 
                 <div class="content">
                 <table>
                 <tr>
@@ -111,12 +85,12 @@
                     </td>
                 </tr>
             </table>
-                </div><!-- /content -->
+                </div> /content 
                 
         </td>
         <td></td>
     </tr>
-</table><!-- /FOOTER -->
+</table> /FOOTER -->
 
 </body>
 </html>

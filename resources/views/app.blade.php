@@ -5,10 +5,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>PAPM @yield('title')</title>
-         <link href="{{ asset('/css/app.css')}}" rel="stylesheet"> 
+        <link href="{{ asset('/css/app.css')}}" rel="stylesheet"> 
         <link rel="stylesheet" type="text/css" href="/css/chosen.css"> 
         <link rel="stylesheet" type="text/css" href="/css/fileinput.min.css">
-         <link rel="stylesheet" type="text/css" href="/css/bootstrap-clockpicker.min.css"> 
+        <link rel="stylesheet" type="text/css" href="/css/bootstrap-clockpicker.min.css"> 
         <link rel="stylesheet" type="text/css" href="/css/daterangepicker-bs3.css">
         <link href="/css/font-awesome.css" rel="stylesheet">
         <link href="/css/bootstrap.min.css" rel="stylesheet" >
@@ -16,40 +16,46 @@
         <link rel="stylesheet" type="text/css" href="/css/bootstrap-chosen.css"> 
         <link rel="stylesheet" type="text/css" href="/css/jquery.dataTables.css" />
         <link rel="stylesheet" type="text/css" href="/css/dataTables.bootstrap.css" />
-        <link rel="stylesheet" type="text/css" href="/js-lib/jquery.ganttView/jquery.ganttView.css"> 
+        <link rel="stylesheet" type="text/css" href="/js-lib/jquery.ganttView/jquery.ganttView.css">
+        <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/validationEngine.jquery.css">
+        <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/template.css">
+        <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/style.css">
         @section('js')
-     <!--  Jquery Base -->
-       
+        <!--  Jquery Base -->
+
         <!--Jquery GanttView-->
         <script src="/js-lib/jquery.ganttView/lib/date.js"></script>
         @if(Request::is('*/gantt'))
         <script src="/js-lib/jquery.ganttView/lib/jquery-1.4.2.js"></script>
 
         @else
- <script src="/js/jquery.min.js"></script>
- 
+        <script src="/js/jquery.min.js"></script>
+
         @endif
         <script src="/js-lib/jquery.ganttView/lib/jquery-ui-1.8.4.js"></script>
         <script src="/js-lib/jquery.ganttView/jquery.ganttView.js"></script>
-         <!--Jquery GanttView-->
+        <!--Jquery GanttView-->
 
+        <script src="http://osvaldas.info/examples/placeholder-polyfill-with-password-support/jquery.input-placeholder-polyfill.min.js" ></script>
 
-  
         <script type="text/javascript" src="/js/fileinput.min.js"></script>
         <script type="text/javascript" src="/js/bootstrap-clockpicker.min.js"></script>
-       
+
+        <script type="text/javascript" src="/js-lib/jQuery-Validation-Engine/js/languages/jquery.validationEngine-th.js" ></script>
+        <script type="text/javascript" src="/js-lib/jQuery-Validation-Engine/js/jquery.validationEngine.js" ></script>
         <link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
         <script src="/js-lib/tinymce/js/tinymce/tinymce.min.js"></script>
         <script type="text/javascript" src="/js/readmore.js"></script>
         <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
         <script type="text/javascript" src='/js/fileinput.min.js'></script>
         <script type="text/javascript" src="/js/moment-with-locales.js" ></script>
-      <script src="/js/daterangepicker.js"></script>
+        <script src="/js/daterangepicker.js"></script>
         <script type="text/javascript" src="/js/chosen.jquery.min.js" ></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/jquery.dataTables.js" ></script>
         <script src="/js/dataTables.bootstrap.js" ></script>
-       <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <script src="/js-lib/blockui/jquery.blockUI.js" ></script>
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
                 <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
@@ -62,48 +68,116 @@
             }  table .collapse.in {
                 display:table-row;
             }
+
+            .navbar-login
+            {
+                width: 305px;
+                padding: 10px;
+                padding-bottom: 0px;
+            }
+
+            .navbar-login-session
+            {
+                padding: 10px;
+                padding-bottom: 0px;
+                padding-top: 0px;
+            }
+
+            .icon-size
+            {
+                font-size: 87px;
+            }
         </style>
     </head>
     <body>
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="{{ url('/dashboard')}}">The Project Acceleration and Progression Monitoring System
-                    </a>
-                </div>
-
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-                    <ul class="nav navbar-nav navbar-right">
-                        @if (Auth::guest())
-                        <li><a href="{{ route('getlogin')}}">Login</a></li>
-                        <li><a href="{{ route('register')}}">Register</a></li>
-                        @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">{!! Auth::user()->role !!}  {!! Auth::user()->first_name !!}  <span class="caret"></span></a>
-                            <ul class="dropdown-menu" role="menu">
-                                <li><a href="{{ route('logout')}}">Logout</a></li>
+        <div class="container">    
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="{{ url('/dashboard')}}">The Project Acceleration and Progression Monitoring System
+                        </a>
+                    </div>
+
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                        <ul class="nav navbar-nav navbar-right list-inline">
+                            @if (Auth::guest())
+                            <li><a href="{{ route('getlogin')}}">Login</a></li>
+                            <li><a href="{{ route('register')}}">Register</a></li>
+                            @else
+                            <?php
+                            if (Auth::user()->role == 'adviser') {
+                                $role = 'อาจารย์';
+                            } elseif (Auth::user()->role == 'student') {
+                                $role = 'นิสิต';
+                            } else {
+                                $role = 'แอดมิน';
+                            }
+                            ?>  
+                          
+                            <li href="#" style=" cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown">
+
+                                 
+                                    <strong>  {!! $role.Auth::user()->first_name !!}  </strong>
+                                    <span class="glyphicon glyphicon-chevron-down"></span>
+
+                                </li> 
+                            <ul class="dropdown-menu">
+
+                                <li>
+                                    <div class="navbar-login">
+                                        <div class="row">
+                                            <div class="col-lg-4">
+                                                <p class="text-center">
+                                                    @if(Auth::user()->profile_image)
+                                                    <span><img class="img-responsive img-thumbnail" width="100px" src="/storage/upload/{{Auth::user()->profile_image}}" /></span>
+
+                                                    @else 
+                                                    <span class="glyphicon glyphicon-user icon-size"></span>
+                                                    @endif
+                                                </p>
+                                            </div>
+                                            <div class="col-lg-8">
+                                                <p class="text-left"><strong>  {!! $role.Auth::user()->first_name !!}  {!! Auth::user()->last_name !!}  </strong></p>
+                                                <p class="text-left small">  {!! Auth::user()->email !!}  </p>
+                                                <p class="text-left">
+                                                    <a href="{{ route('profile')}}" class="btn btn-primary btn-block btn-sm">แก้ไขประวติ</a>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <div class="navbar-login navbar-login-session">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <a href="{{ route('logout')}}" class="btn btn-danger btn-block">Logout</a>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
                             </ul>
-                        </li>
-                        @endif
-                    </ul>
+                            @endif
+                        </ul>
+                    </div>
                 </div>
-            </div>
-        </nav>
-
-        <div class="container">
+            </nav>
             <div class="row">
                 @if (Auth::user())
                 <div class="col-md-2">
 
                     <div class="panel panel-default">
                         <div class="panel-heading">Home  
-                         <a class="btn btn-primary" 
-                         href="{{ route('notification.index',['status'=>'0'])}}">
-                         <span class="badge">{{ $unread = App\Notification::where('is_read',0)->where('reciver_id',Auth::user()->id)->count() }}
-                         </span></a>
-                                </div>
+                            <a class="btn btn-danger" 
+                               href="{{ route('notification.index',['status'=>'0'])}}">
+                                <span class="badge">{{ $unread = App\Notification::where('is_read',0)->where('reciver_id',Auth::user()->id)->count() }}
+                                </span></a>
+                        </div>
 
                         <div class="panel-body">
                             <nav class="navbar navbar-default" role="navigation">
@@ -119,7 +193,6 @@
                                         <li @if(Request::is('project/*')) class="active" @endif><a href="{{ route('project.index')}}"><span class="glyphicon glyphicon-briefcase"></span> โปรเจค</a></li>
                                         <li @if(Request::is('appointment/*')) class="active" @endif><a href="{{ route('appointment.index')}}"><span class="glyphicon glyphicon-adjust"></span> การนัดหมาย</a></li>
                                         <li @if(Request::is('activity/*')) class="active" @endif><a href="{{ route('activity.index')}}"><span class="glyphicon glyphicon-tasks"></span> ตารางงาน</a></li>
-                                        <li @if(Request::is('profile/*')) class="active" @endif><a href="{{ route('profile')}}"><span class="glyphicon glyphicon-user"></span> ตั้งค่าประวัติ</a></li>
                                     </ul>
                                 </div><!-- /.navbar-collapse -->
                             </nav>
@@ -166,13 +239,13 @@
     <script type="text/javascript">
 $('.table').dataTable();
 tinymce.init({selector: 'textarea', menubar: false, });
-
+$(".form-horizontal").validationEngine('attach');
 $('.remove').click(function (e) {
     var href = $(this).attr("data-url");
     console.log(href);
     $('#delete').attr("href", href)
 });
-
+$('input').inputPlaceholderPolyfill();
 $(document).ready(function () {
     moment.locale('th');
 
@@ -180,7 +253,7 @@ $(document).ready(function () {
 $('.chosen').chosen();
 $('.singledatepicker').daterangepicker({// เลือกแบบอันเดียว
     singleDatePicker: true,
-    format: 'YYYY-DD-MM',
+    format: 'YYYY-MM-DD',
     separator: ' - ',
     locale: {
         applyLabel: 'เลือก',
@@ -199,7 +272,7 @@ $('.clockpicker').clockpicker({donetext: 'เลือก', afterDone: function 
 $('.singledatetime-picker').daterangepicker({// เลือกแบบอันเดียวและมีเวลาด้วย
     singleDatePicker: true,
     timePicker: true,
-    format: 'YYYY-DD-MM ',
+    format: 'YYYY-MM-DD h:mm ',
     showDropdowns: true,
     timePickerIncrement: 5,
     separator: ' - ',
@@ -220,19 +293,11 @@ $('.daterange').daterangepicker({
     endDate: moment(),
     dateLimit: {days: 1000},
     showDropdowns: true,
+   
     showWeekNumbers: true,
     timePicker: true,
     timePickerIncrement: 5,
     timePicker12Hour: true,
-    ranges: {
-        'วันนี้': [moment().startOf('days'), moment()],
-        'เมื่อวาน': [moment().subtract(1, 'days').startOf('days'), moment().subtract(1, 'days').endOf('days')],
-        '7 วันก่อน': [moment().subtract(6, 'days').startOf('days'), moment().endOf('days')],
-        '30 วันก่อน': [moment().subtract(29, 'days').startOf('days'), moment().endOf('days')],
-        'เดือนนี้': [moment().startOf('month').startOf('days'), moment().endOf('days')],
-        'เดือนก่อน': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-        'ปีก่อน': [moment().subtract(1, 'year').startOf('year'), moment().subtract(1, 'year').endOf('year')]
-    },
     // opens: 'left',
     buttonClasses: ['btn btn-default'],
     applyClass: 'btn-small btn-primary',

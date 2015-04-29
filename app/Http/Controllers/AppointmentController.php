@@ -8,7 +8,7 @@ use Request,
     Input,
     View,
     App\Appointment,
-    Redirect,  App\Notification,
+    Redirect, App\Project,
     App\User;
 
 class AppointmentController extends Controller {
@@ -35,7 +35,12 @@ class AppointmentController extends Controller {
      * @return Response
      */
     public function index() {
-        $appointments = Appointment::all();
+        if(Auth::user()->role == 'adviser'){
+             $appointments = Appointment::where('adviser_id',Auth::user()->id)->get();
+        }  else if(Auth::user()->role == 'student'){
+             $appointments = Appointment::where('student_id',Auth::user()->id)->get();
+        }
+       
 
         return view('appointment.index')
                         ->with('appointments', $appointments);
@@ -44,13 +49,15 @@ class AppointmentController extends Controller {
     public function create() {
         if (Request::isMethod('post')) {
             $appointment = Appointment::create(Input::all());
-            $students = User::where('role', 'student')->where('project_id', $appointment->project_id)->get();
-         
-            foreach ($students as $student):
-                $this->notification('appointment', 'แจ้งเตือนนัดหมาย ' . $appointment->title, $student->id);
+            $users = User::where('role', 'student')->where('project_id', $appointment->project_id)->get();
+            if(Auth::user()->role == 'adviser'):
+            $data = ['location'=>$appointment->location,'due_date'=>$appointment->due_date];
+            foreach ($users as $user):
+                $this->notification('appointment', 'แจ้งเตือนนัดหมาย ' . $appointment->title, $users->id,'สถานที่นัดพบ '.$appointments->location.
+                        ' เวลา '.$appointments->due_date.' รายละเอียดเพิ่มเติม :'.$appointments->detail);
             endforeach;
-
-            return Redirect::back()->with('success', 'เพิ่มนัหมายเรียบร้อย');
+            endif;
+            return Redirect::route('appointment.index')->with('success', 'เพิ่มนัหมายเรียบร้อย');
         } else {
             $project = DB::table('project')->lists('name', 'id');
 
@@ -102,7 +109,7 @@ class AppointmentController extends Controller {
         $this->notification('postponse','เลื่อนการนัดหมาย', $student->id,'เลื่อนไปเป็นวันที่ '.
         $this->DateThai($postponse->timetogo).' สถานที่ '.$postponse->location.' เพราะ '.$postponse->reason);
             endforeach;
-            return redirect()->back()->with('success','แจ้งเตือนไปยังสมาชิกในกลุ่มแล้ว');
+            return redirect()->route('appointment.index')->with('success','แจ้งเตือนไปยังสมาชิกในกลุ่มแล้ว');
         endif;
         
         return view('appointment.postponse');

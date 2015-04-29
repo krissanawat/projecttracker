@@ -48,9 +48,9 @@
 
                             <!-- Text input-->
                             <div class="form-group">
-                                <label class="col-md-4 control-label" for="stop">วันที่สิ้นสุด</label>  
+                                <label class="col-md-4 control-label" for="finish">วันที่สิ้นสุด</label>  
                                 <div class="col-md-4">
-                                    <input id="stop" name="stop" value=""type="text" placeholder="" class=" singledatepicker form-control input-md">
+                                    <input id="finish" name="finish" value=""type="text" placeholder="" class=" singledatepicker form-control input-md">
 
                                 </div>
                             </div>

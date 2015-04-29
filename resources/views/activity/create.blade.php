@@ -5,16 +5,30 @@
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading">เพิ่มข้อมูล การนัดหมาย
+                <div class="panel-heading">เพิ่มข้อมูล Activity
 
 
                 </div>
 
                 <div class="panel-body">
             {!! Form::open(['route'=>'activity.postcreate','class'=>'form-horizontal']) !!}
-                {!! Form::hidden('project_id',$project_id) !!}
+   
                         <fieldset>
-                        
+                              <div class="form-group">
+                                <label class="col-md-4 control-label" for="name">โปรเจค</label>  
+                                <div class="col-md-3">
+                               
+@if(Auth::user()->role == 'student')
+{!! Form::hidden('project_id',Auth::user()->project_id) !!}
+<?php $project = App\Project::find(Auth::user()->project_id)->get(); ?>
+<input id="name"  type="text" date-start='{!! $project[0]->start !!}' date-finish='{!! $project[0]->finish !!}' value="{!! $project[0]->name !!}"  id="project" class="form-control input-md" readonly >
+@else 
+ <?php $user = App\Project::where('id',Auth::user()->project_id)->lists('name','id') ?>
+                                   {!! Form::select('project_id',$user,Request::segment('3'),['class'=>'form-control required chosen','id'=>'project']) !!}
+ @endif                               
+                                </div>
+                               
+                            </div>
                             <!-- Text input-->
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="name">Activity</label>  
@@ -71,27 +85,10 @@
                                 </div>
                                
                             </div>
-                                  <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">สถานะ</label>  
-                                <div class="col-md-3">
-          
-                                   {!! Form::select('status',['ยังไม่เริ่ม'=>'ยังไม่เริ่ม','กำลังทำ'=>'กำลังทำ','รองานอื่น'=>'รองานอื่น'],'',['class'=>'form-control chosen']) !!}
-                                
-                                </div>
-                               
-                            </div>
-                              <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">การอนมัติ</label>  
-                                <div class="col-md-3">
-          
-                                   {!! Form::select('approve',['อนุมัติ'=>'อนุมัติ','ไม่อนุมัติ'=>'ไม่อนุมัติ'],'',['class'=>'form-control chosen']) !!}
-                                
-                                </div>
-                               
-                            </div>
+                            
 
                                 
-                            </div>
+                           
                  <div class="form-group">
                               
                                  <label class="col-md-4 control-label" for="name"></label>  
@@ -103,7 +100,7 @@
 
                         </fieldset>
                     </form>
-
+ </div>
                 </div>
             </div>
         </div>
@@ -114,6 +111,16 @@
 <script type="text/javascript">
     // $('.daterangepicker1').daterangepicker();
 $("#appoint_group").chosen();
+//$('#project').select(function(){
+//    var val = $(this).val();
+//    $.get({})
+// 
+//})
+@if(Auth::user()->role == 'student')
+   var date_start = $('#project').attr('date-start');
+    var date_finish = $('#project').attr('date-finish');
+   $('.daterange').daterangepicker({ minDate: date_start, maxDate: date_finish });
+   @endif
 </script>
 
 @stop

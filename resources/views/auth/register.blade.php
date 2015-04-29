@@ -51,17 +51,31 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label">รหัสผ่าน</label>
+                            <label class="col-md-4 control-label">ยืนยันรหัสผ่าน</label>
                             <div class="col-md-6">
                                 <input type="password" class="form-control" name="confirm_password">
                             </div>
+                        </div>
+                        <div id="student-input" style="display:none;">
+                          <div class="form-group">
+                            <label class="col-md-4 control-label">เวลาทำงาน(ชั่วโมง/วัน)</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="working_time">
+                            </div>
+                        </div>
+                          <div class="form-group">
+                            <label class="col-md-4 control-label">เวลาที่ไม่ทำงาน(ชั่วโมง/วัน)</label>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" name="non_working_time">
+                            </div>
+                        </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">สถานะ</label>
                             <div class="col-md-6">
                                 <div class="col-sm-6">
                                     <div class="radio">
-                                        <input type="radio" name="role" value="advisee" id="radio1">
+                                        <input type="radio" name="role" value="adviser" id="radio1">
                                         <label for="radio1">
                                             อาจารย์
                                         </label>
@@ -89,3 +103,17 @@
     </div>
 </div>
 @endsection
+@section('specific_script')
+<script>
+    $('.form-horizontal input').on('change', function() {
+   var val =$('input[name=role]:checked', '.form-horizontal').val(); 
+   if(val == 'student'){
+       $('#student-input').show("slow")
+   }else{
+       $('#student-input').hide("slow")
+   }
+});
+    
+  </script>
+
+@stop

@@ -7,7 +7,9 @@
             <div class="panel panel-default">
                 <div class="panel-heading">โปรเจค
                     <div class="pull-right">
+                        @if(Auth::user()->role == 'adviser')
                         <a href="{{ route('project.create') }}" class="btn btn-xs btn-success"><span class="glyphicon glyphicon-save"></span> เพิ่มข้อมูล</a>
+                        @endif
                     </div>
                 </div>
 
@@ -45,7 +47,7 @@
                                             </td>
                                             <td><a href="#" data-toggle="modal" data-target="#detail{!! $project->id !!}" class="btn btn-success" id="openBtn">ดูรายละเอียด</a></td>
                                             <td>{!! $project->start !!}</td>
-                                            <td>{!! $project->stop !!}</td>
+                                            <td>{!! $project->finish !!}</td>
                                             <td>
                                                <a target="_blank" href="{{ route('project.gantt',$project->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> ดู Gantt Chartt</a>
                                                   <a target="_blank" href="{{ route('activity.getcreate',$project->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span>เพิ่ม activity</a>

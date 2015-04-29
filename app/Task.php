@@ -17,7 +17,7 @@ class Task extends Model  {
      *
      * @var array
      */
-    protected $fillable = ['name', 'start_time', 'end_time', 'status','approve','activity_id','completed_at'];
+    protected $fillable = ['name', 'start_time', 'end_time', 'status','approve','timefortask','activity_id','completed_at'];
 
     public function activity(){
             return $this->belongsTo('App\Activity','activity_id');

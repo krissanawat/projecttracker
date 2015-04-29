@@ -60,24 +60,7 @@
                                 </div>
                                
                             </div>
-                                  <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">สถานะ</label>  
-                                <div class="col-md-3">
-          
-                                   {!! Form::select('status',['ยังไม่เริ่ม'=>'ยังไม่เริ่ม','กำลังทำ'=>'กำลังทำ','รองานอื่น'=>'รองานอื่น'],'',['class'=>'form-control chosen']) !!}
-                                
-                                </div>
-                               
-                            </div>
-                              <div class="form-group">
-                                <label class="col-md-4 control-label" for="name">การอนมัติ</label>  
-                                <div class="col-md-3">
-          
-                                   {!! Form::select('approve',['อนุมัติ'=>'อนุมัติ','ไม่อนุมัติ'=>'ไม่อนุมัติ'],'',['class'=>'form-control chosen']) !!}
-                                
-                                </div>
-                               
-                            </div>
+                                 
 
                                           <div class="form-group">
                                 <label class="col-md-4 control-label" for="name"></label>  

@@ -26,8 +26,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $fillable = ['first_name', 'email', 'password',
-     'role', 'last_name','username','profile','start_working_time'
-     ,'stop_working_time','start_rest_time','stop_rest_time'];
+     'role', 'last_name','username','profile','working_time'
+     ,'non_working_time','activated','confirm_hash'];
 
     public function setPasswordAttribute($value) {
         $this->attributes['password'] = \Hash::make($value);

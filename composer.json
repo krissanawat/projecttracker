@@ -8,15 +8,14 @@
         "laravel/framework": "5.0.*",
         "raveren/kint": "dev-master",
         "barryvdh/laravel-ide-helper": "dev-master",
-        "snowfire/beautymail": "1.*",
         "philo/laravel5-facebook": "1.0.*",
         "laravelcollective/html": "dev-master",
-        "xuma/laravel-amaran": "dev-master",
         "guzzlehttp/guzzle": "~4.0"
     },
     "require-dev": {
         "phpunit/phpunit": "~4.0",
-        "phpspec/phpspec": "~2.1"
+        "phpspec/phpspec": "~2.1",
+        "laracasts/generators": "~1.1"
     },
     "autoload": {
         "classmap": [

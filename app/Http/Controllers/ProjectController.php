@@ -40,8 +40,19 @@ class ProjectController extends Controller {
      * @return Response
      */
     public function index() {
-        $projects = Project::with('coadviser')->get();
-//                dd($projects);
+//        ddd(Auth::user()->project_id);
+        if(Auth::user()->role == 'student'){
+              $projects = Project::with('coadviser')->where('id',Auth::user()->project_id)->get();
+        }elseif(Auth::user()->role == 'adviser'){
+            
+            $projects = Project::with('student')
+                    ->where('primary_adviser_id',Auth::user()->id)
+                    ->whereOr('secondary_adviser_id',Auth::user()->id)->get();
+
+        }else{
+              $projects = Project::with('coadviser')->get();
+        }
+      
         return view('project.index')->with('projects', $projects);
     }
 
@@ -70,7 +81,7 @@ class ProjectController extends Controller {
         if (Request::isMethod('post')) {
             // ddd(Input::all());
             $project = Project::create(Input::all());
-            return Redirect::route('project.index')->with('success', 'เพิ่มโปรเจคสำเร็จ');
+           
             if (Input::has('student')):
                 $student = User::whereIn('id', Input::get('student'));
                 $student->update(['project_id' => $project->id]);
@@ -78,7 +89,6 @@ class ProjectController extends Controller {
                 foreach (Input::get('student') as $user): //วนลูปสร้างการแจ้งเตือน
                  $this->notification('project','คุณได้ถูกเพิ่มเข้าสู่โปรเจค' . $project->name,$user);
                 endforeach;
-
             endif;
             if (Input::has('secondary_adviser_id')):
                 $adviser = User::find(Input::get('secondary_adviser_id'));
@@ -119,13 +129,16 @@ class ProjectController extends Controller {
         $projects = Project::find(Input::get('id'));
 
         DB::table('users')->where('project_id', Input::get('id'))
-                ->whereNotIn('id', [Auth::user()->id])
                 ->update(['project_id' => 0]); // เปลี่ยนข้อมูลกลับก่อน
-        User::where('id', Input::get('adviser'))->update(['project_id' => $projects->id]);
-        foreach (Input::get('student') as $key => $student) { // แล้วค่อยอัพเดทข้อมูลใหม่
+//        ddd(DB::getQueryLog());
+        User::where('id', Input::get('secondary_adviser_id'))->update(['project_id' => $projects->id]);
+        if(Input::has('student')):
+             foreach (Input::get('student') as $key => $student) { // แล้วค่อยอัพเดทข้อมูลใหม่
             User::where('id', $student)->update(['project_id' => $projects->id]);
         }
-
+        endif;
+       
+//        ddd(Input::all());
         $projects->update(Input::all());
         return Redirect::back()->with('success', 'การแก้ไขเสร็จเรียบร้อย');
     }

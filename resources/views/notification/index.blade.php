@@ -15,9 +15,9 @@
                         <div class="widget stacked widget-table action-table">
 
                             <div class="widget-header">
-                                <a class="btn btn-primary" href="{{ route('notification.index',['status'=>'1'])}}">อ่านแล้ว</a>
-                                <a class="btn btn-success" href="{{ route('notification.index',['status'=>'0'])}}">ยังไม่ได้อ่าน</a>
-                          		<a class="btn btn-warning" href="{{ route('notification.index',['status'=>'3'])}}">ดูที่ส่งไป</a>
+                                <a class="btn btn-primary" href="{{ route('notification.index',['status'=>1])}}">อ่านแล้ว</a>
+                                <a class="btn btn-success" href="{{ route('notification.index',['status'=>0])}}">ยังไม่ได้อ่าน</a>
+                          	<a class="btn btn-warning" href="{{ route('notification.index',['status'=>2])}}">ดูที่ส่งไป</a>
                           		
                             </div> <!-- /widget-header -->
 
@@ -44,7 +44,9 @@
   <a href="{{ route('notification.markasread',$notification->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span>อ่านแล้ว</a>
                                              
                                             @endif
+                                            @if(Auth::user()->role == 'admin')
                                                <a  href="#myModal" data-url="{{ route('notification.delete',$notification->id)}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
+                                           @endif
                                             </td>
                                         </tr>
                                     
