@@ -16,7 +16,9 @@
                 <div class="panel-body">
                     <table class="table table-bordered">
                         <thead>
-                        <th> ชื่อ</th><th>วันที่เริ่ม</th><th> กำหนดเสร็จ</th><th>วันที่เสร็จจริง</th><th>สถานะ</th><th>ให้ทำได้</th>
+                        <th> ชื่อ</th><th>วันที่เริ่ม</th><th> กำหนดเสร็จ</th>
+                        <th>วันที่เสร็จจริง</th><th>สถานะ</th><th>ให้ทำได้</th>
+                        <th>จำนวนชั่วโมง</th>
                         
                         </thead>
                         <tbody>
@@ -25,7 +27,7 @@
                             <td>{!! $task->name !!}</td>
                              <td>{!! $task->start_time !!}</td>
                               <td>{!! $task->stop_time !!}</td>
-                               <td>{!! $task->stop_time !!}</td>
+                                <td>{!! $task->completed_at !!}</td>
                                    @if(Auth::user()->role == 'student' && $task->status == 'approve')
                   <td>{!! Form::select('status',['ยังไม่เริ่มทำ'=>'ยังไม่เริ่มทำ','รองานอื่น'=>'รองานอื่น','กำลังทำ'=>'กำลังทำ','ไม่เสร็จ'=>'ไม่เสร็จ',],
                          $task->status,['data'=>$task->id,'class'=>'form-control status']) !!}</td>
@@ -37,6 +39,7 @@
                                          @else
                                           <td>{!! $task->approve !!}</td>
                                          @endif
+                                          <td>{!! $task->timefortask !!}</td>
                               </tr>
                             @endforeach()
                         </tbody>

@@ -56,10 +56,11 @@ class TaskController extends Controller {
     public function postCreate() {
         $user = \App\User::find(Input::get('responsible'));
         $task = new Task;
-        $task_range = explode('-', Input::get('task_range'));
-        $task->start_time = date('Y-m-d H:i:s', strtotime($task_range[0]));
-        $task->stop_time = date('Y-m-d H:i:s', strtotime($task_range[1]));
-        $task->timefortask = ($task->start_time - $task->stop_time) * $user->working_time;
+//        ddd(Input::all());
+        $task->start_time = \DateTime::createFromFormat('Y-m-d',Input::get('start_time'));
+        $task->stop_time = \DateTime::createFromFormat('Y-m-d',Input::get('stop_time'));
+        $datediff = $task->start_time->diff($task->stop_time);
+        $task->timefortask = $datediff->days * $user->working_time;
                 // อัพเดทวันล่าสุดของ activity
                 $activity = \App\Activity::find(Input::get('activity_id'));
         $activity->update(['stop_time' => $task->stop_time]);

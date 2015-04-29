@@ -54,7 +54,7 @@ return [
 	|
 	*/
 
-	'from' => ['address' => 'papm@se.ict.up.ac.th', 'name' => 'ข้อความจาก ระบบติดตามการทำโปรเจค' ],
+	'from' => ['address' => 'papm@se.ict.up.ac.th', 'name' => 'admin@papm.dev ' ],
 
 	/*
 	|--------------------------------------------------------------------------

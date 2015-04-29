@@ -63,24 +63,21 @@ class ActivityController extends Controller {
 
     public function postCreate() {
 //         ddd(Input::all());
-            $range = explode('-', Input::get('task_range'));
-
-            $start = date_format(date_create($range[0]), 'Y-m-d H:i:s');
-            $stop = date_format(date_create($range[1]), 'Y-m-d H:i:s');
+//      ddd(Input::all());
 
         $Activity = new Activity;
-        $Activity->name = Input::get('name');
-        $Activity->start_time = date('Y-m-d H:i:s', strtotime($start));
-        $Activity->stop_time = date('Y-m-d H:i:s', strtotime($stop));
+        $Activity->name = Input::get('activity_name');
+        $Activity->start_time = \DateTime::createFromFormat('Y-m-d',Input::get('task_start'));
+        $Activity->stop_time = \DateTime::createFromFormat('Y-m-d', Input::get('task_finish'));
         $Activity->project_id = Input::get('project_id');
         $Activity->user_id = Auth::user()->id;
         $Activity->save();
 
         $task = new Task;
-        $task->name = Input::get('name');
+        $task->name = Input::get('task_name');
         $task->item_of_task = Input::get('item_of_task');
-         $task->start_time = date('Y-m-d H:i:s', strtotime($start));
-        $task->stop_time = date('Y-m-d H:i:s', strtotime($stop));
+         $task->start_time = \DateTime::createFromFormat('Y-m-d',Input::get('task_start'));
+        $task->stop_time =  \DateTime::createFromFormat('Y-m-d', Input::get('task_finish'));
         $task->activity_id = Input::get('activity_id');
         $task->approve = Input::get('approve');
         $task->save();

@@ -9,7 +9,7 @@
         <link rel="stylesheet" type="text/css" href="/css/chosen.css"> 
         <link rel="stylesheet" type="text/css" href="/css/fileinput.min.css">
         <link rel="stylesheet" type="text/css" href="/css/bootstrap-clockpicker.min.css"> 
-        <link rel="stylesheet" type="text/css" href="/css/daterangepicker-bs3.css">
+        <!--<link rel="stylesheet" type="text/css" href="/css/daterangepicker-bs3.css">-->
         <link href="/css/font-awesome.css" rel="stylesheet">
         <link href="/css/bootstrap.min.css" rel="stylesheet" >
         <link rel="stylesheet" type="text/css" href="/css/awesome-bootstrap-checkbox.css">
@@ -20,6 +20,7 @@
         <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/validationEngine.jquery.css">
         <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/template.css">
         <link rel="stylesheet" type="text/css" href="/js-lib/jQuery-Validation-Engine/css/style.css">
+        <link rel="stylesheet"  type="text/css" href="/js-lib/eternicode-bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css" />
         @section('js')
         <!--  Jquery Base -->
 
@@ -49,12 +50,13 @@
         <script type="text/javascript" src="/js/chosen.jquery.min.js"></script>
         <script type="text/javascript" src='/js/fileinput.min.js'></script>
         <script type="text/javascript" src="/js/moment-with-locales.js" ></script>
-        <script src="/js/daterangepicker.js"></script>
+        <!--<script src="/js/daterangepicker.js"></script>-->
         <script type="text/javascript" src="/js/chosen.jquery.min.js" ></script>
         <script src="/js/bootstrap.min.js"></script>
         <script src="/js/jquery.dataTables.js" ></script>
         <script src="/js/dataTables.bootstrap.js" ></script>
         <script src="/js-lib/blockui/jquery.blockUI.js" ></script>
+        <script src="/js-lib/eternicode-bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -117,14 +119,14 @@
                                 $role = 'แอดมิน';
                             }
                             ?>  
-                          
+
                             <li href="#" style=" cursor:pointer;" class="dropdown-toggle" data-toggle="dropdown">
 
-                                 
-                                    <strong>  {!! $role.Auth::user()->first_name !!}  </strong>
-                                    <span class="glyphicon glyphicon-chevron-down"></span>
 
-                                </li> 
+                                <strong>  {!! $role.Auth::user()->first_name !!}  </strong>
+                                <span class="glyphicon glyphicon-chevron-down"></span>
+
+                            </li> 
                             <ul class="dropdown-menu">
 
                                 <li>
@@ -251,70 +253,13 @@ $(document).ready(function () {
 
 })
 $('.chosen').chosen();
-$('.singledatepicker').daterangepicker({// เลือกแบบอันเดียว
-    singleDatePicker: true,
-    format: 'YYYY-MM-DD',
-    separator: ' - ',
-    locale: {
-        applyLabel: 'เลือก',
-        cancelLabel: 'ยกเลิก',
-        fromLabel: 'จาก',
-        toLabel: 'ถึง',
-        customRangeLabel: 'เลือกช่วง',
-        daysOfWeek: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-        monthNames: ['ม.ค', 'ก.พ', 'มี.ค', 'เม.ย', 'พ.ค', 'มิ.ย', 'ก.ค', 'ส.ค', 'ก.ย', 'ต.ค', 'พ.ย', 'ธ.ค'],
-        firstDay: 1
-    }
-})
+
 $('.clockpicker').clockpicker({donetext: 'เลือก', afterDone: function () {
         alert("after done");
     }});
-$('.singledatetime-picker').daterangepicker({// เลือกแบบอันเดียวและมีเวลาด้วย
-    singleDatePicker: true,
-    timePicker: true,
-    format: 'YYYY-MM-DD h:mm ',
-    showDropdowns: true,
-    timePickerIncrement: 5,
-    separator: ' - ',
-    locale: {
-        applyLabel: 'เลือก',
-        cancelLabel: 'ยกเลิก',
-        fromLabel: 'จาก',
-        toLabel: 'ถึง',
-        customRangeLabel: 'เลือกช่วง',
-        daysOfWeek: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-        monthNames: ['ม.ค', 'ก.พ', 'มี.ค', 'เม.ย', 'พ.ค', 'มิ.ย', 'ก.ค', 'ส.ค', 'ก.ย', 'ต.ค', 'พ.ย', 'ธ.ค'],
-        firstDay: 1
-    }
-})
 
-$('.daterange').daterangepicker({
-    startDate: moment().subtract(29, 'days'),
-    endDate: moment(),
-    dateLimit: {days: 1000},
-    showDropdowns: true,
-   
-    showWeekNumbers: true,
-    timePicker: true,
-    timePickerIncrement: 5,
-    timePicker12Hour: true,
-    // opens: 'left',
-    buttonClasses: ['btn btn-default'],
-    applyClass: 'btn-small btn-primary',
-    cancelClass: 'btn-small',
-    format: 'MM/DD/YYYY',
-    separator: ' - ',
-    locale: {
-        applyLabel: 'เลือก',
-        cancelLabel: 'ยกเลิก',
-        fromLabel: 'จาก',
-        toLabel: 'ถึง',
-        customRangeLabel: 'เลือกช่วง',
-        daysOfWeek: ['อา', 'จ', 'อ', 'พ', 'พฤ', 'ศ', 'ส'],
-        monthNames: ['ม.ค', 'ก.พ', 'มี.ค', 'เม.ย', 'พ.ค', 'มิ.ย', 'ก.ค', 'ส.ค', 'ก.ย', 'ต.ค', 'พ.ย', 'ธ.ค'],
-        firstDay: 1
-    }
-});
+
+
     </script>
 
 
