@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Request,
     Input,
     Storage,
-    File,
+    File,Session,
     App\User,
     Redirect,
     Auth;
@@ -56,7 +56,15 @@ class UserController extends Controller {
      */
     public function dashboard() {
         if (Auth::user()) {
-            return view('dashboard');
+          
+            if(Auth::user()->role == 'adviser'){
+                $project = \App\Project::with('activity')->where('primary_adviser_id',Auth::user()->id)->get();
+          
+                }else{
+               $project = \App\Project::with('activity')->where('id',Auth::user()->project_id)->get();
+            }
+            
+            return view('dashboard')->with('project',$project);
         } else {
             return redirect()->route('getlogin');
         }
@@ -92,7 +100,7 @@ class UserController extends Controller {
     }
 
     public function getlogin() {
-
+           Session::put('redirect_url',Request::server('HTTP_REFERER'));
         return view('auth.login');
     }
 
@@ -103,7 +111,7 @@ class UserController extends Controller {
             if (Auth::attempt(['email' => Input::get('email'), 'password' => Input::get('password')])) {
 
 
-                return Redirect::route('dashboard');
+                return redirect()->to(Session::get('redirect_url'));
             } else {
                 return Redirect::back();
             }

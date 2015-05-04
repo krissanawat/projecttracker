@@ -50,10 +50,10 @@
                                             <td>{!! $project->finish !!}</td>
                                             <td>
                                                <a target="_blank" href="{{ route('project.gantt',$project->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span> ดู Gantt Chartt</a>
-                                                  <a target="_blank" href="{{ route('activity.getcreate',$project->id)}}" class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span>เพิ่ม activity</a>
+                                                  <a target="_blank" href="{{ route('activity.getcreate',['id'=>$project->id])}}" class="btn btn-primary"><span class="glyphicon glyphicon-tasks"></span>เพิ่ม activity</a>
                                                
                                                 <a href="{{ route('project.edit',$project->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
-                                                <a  href="#myModal" data-url="{{ route('project.delete',$project->id)}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
+                                                <a  href="#myModal" data-url="{{ route('project.delete',['id'=>$project->id])}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
                                             </td>
                                         </tr>
                                     <div id="detail{!! $project->id !!}" class="modal fade">

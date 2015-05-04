@@ -47,7 +47,7 @@
                                              <td>{!! $activity->completed_at !!}</td>
                              
                                              <td>
-                                                <a  target="_blank" href="{{ route('activity.edit',$activity->id)}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
+                                                <a  target="_blank" href="{{ route('activity.edit',['id'=>$activity->id])}}" class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span> แก้ไข</a>
                                                 <a  href="#myModal" data-url="{{ route('activity.delete',$activity->id)}}" data-toggle="modal" data-target="#myModal" class="remove btn btn-danger"><span class="glyphicon glyphicon-trash"></span> ลบ</a>
                                             </td>
                                         </tr>

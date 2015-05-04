@@ -37,7 +37,7 @@ abstract class Controller extends BaseController {
         $notification->save();
         
         $data = ['title'=>$notification->subject,'from'=>$notification->sender->first_name,'detail'=>$body];
-//        d($notification);
+//        ddd($notification->reciver->first_name);
         \Mail::send('emails.notification',$data,function($message) use ($notification) {
                 $message->to($notification->reciver->email,$notification->reciver->first_name)->subject('การแจ้งเตือน จาก PAPM!!');
             });

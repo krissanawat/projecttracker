@@ -7,6 +7,7 @@ use DB,
     App\Activity,
     App\Task,
     App\User,
+    App\Project,
     App\Responsible,
     Auth,
     Redirect;
@@ -40,25 +41,31 @@ class ActivityController extends Controller {
     public function index() {
         if (Auth::user()->role == 'admin') {
             $activity = Activity::all();
-        } else if (Auth::user()->role == 'advser') {
+        } else if (Auth::user()->role == 'adviser') {
             $activity = Activity::where('project_id', \Auth::user()->project_id)->get();
         } else {
-            $activity = DB::table('activity')->where('user_id', Auth::user()->id)
-                            ->where('project_id', \Auth::user()->project_id)->get();
+            $activity = DB::table('activity')->where('user_id', Auth::user()->id)->get();
         }
 
         return view('activity.index')->with('activitys', $activity);
     }
 
-  
+    public function selectuser() {
+        $result = User::where('project_id', Input::get('id'))->where('role', 'student')->select('id', 'first_name')->get();
+        $project = Project::find(Input::get('id'));
+        
+        $dropdown = '<option value=""></option>';
+        foreach ($result as $result):
+            $dropdown .= '<option value="' . $result->id . '">' . $result->first_name . '</option>';
+        endforeach;
+        $data = ['dropdown'=>$dropdown,'start'=>$project->start,'finish'=>$project->finish];
+        return $data;
+    }
 
-    public function getCreate($id) {
-        if (empty(Auth::user()->project_id)) {
-            return redirect()->back()->with('danger', 'คุณยังไม่มีโปรเจค');
-        } else {
-
-            return view('activity.create')->with('project_id', $id);
-        }
+    public function getCreate() {
+        // if (empty(Auth::user()->
+        return view('activity.create');
+        // }
     }
 
     public function postCreate() {
@@ -67,7 +74,7 @@ class ActivityController extends Controller {
 
         $Activity = new Activity;
         $Activity->name = Input::get('activity_name');
-        $Activity->start_time = \DateTime::createFromFormat('Y-m-d',Input::get('task_start'));
+        $Activity->start_time = \DateTime::createFromFormat('Y-m-d', Input::get('task_start'));
         $Activity->stop_time = \DateTime::createFromFormat('Y-m-d', Input::get('task_finish'));
         $Activity->project_id = Input::get('project_id');
         $Activity->user_id = Auth::user()->id;
@@ -76,8 +83,8 @@ class ActivityController extends Controller {
         $task = new Task;
         $task->name = Input::get('task_name');
         $task->item_of_task = Input::get('item_of_task');
-         $task->start_time = \DateTime::createFromFormat('Y-m-d',Input::get('task_start'));
-        $task->stop_time =  \DateTime::createFromFormat('Y-m-d', Input::get('task_finish'));
+        $task->start_time = \DateTime::createFromFormat('Y-m-d', Input::get('task_start'));
+        $task->stop_time = \DateTime::createFromFormat('Y-m-d', Input::get('task_finish'));
         $task->activity_id = Input::get('activity_id');
         $task->approve = Input::get('approve');
         $task->save();

@@ -5,89 +5,154 @@
     <div class="row">
         <div class="col-md-10">
             <div class="panel panel-default">
-                <div class="panel-heading">แก้ไขข้อมูลกิจกรรม
-
+                <div class="panel-heading">แก้ไขข้อมูล Activity
 
                 </div>
-
                 <div class="panel-body">
-                    {!! Form::open(['route'=>'activity.update','class'=>'form-horizontal']) !!}
+                    {!! Form::open(['route'=>'activity.postcreate','class'=>'form-horizontal']) !!}
+
                     <fieldset>
-                        {!! Form::hidden('id',$activity->id)!!}
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">โปรเจค</label>  
+                            <div class="col-md-3">
+
+                                @if(Auth::user()->role == 'student')
+                                {!! Form::hidden('project_id',Auth::user()->project_id) !!}
+                                <?php if(Request::has('id')){
+                                    $project = \App\Project::find(Request::input('id'));
+                                          
+                                };?>
+                                <input id="name"  type="text" value="{!! $project->name !!}"  id="project" class="form-control input-md" readonly >
+                                @else 
+                               
+                                <?php $data = App\Project::where('primary_adviser_id', Auth::user()->id)
+                                        ->lists('name', 'id');
+                                   $project = \App\Project::find(Request::input('id'));
+                                     ddd($project);
+                                ?>
+
+                                {!! Form::select('project_id',$data,Request::input('id'),['class'=>'form-control required chosen','id'=>'project']) !!}
+                                @endif                               
+                            </div>
+                        </div>
                         <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="name">ชื่อ</label>  
-                            <div class="col-md-5">
-                                <input id="name" name="name" value="{{ $activity->name }}" type="text" placeholder="ระบบจัดการร้านอาหาร" class="form-control input-md">
+                            <label class="col-md-4 control-label" for="name">Activity</label>  
+                            <div class="col-md-6">
+                                <input id="name" name="activity_name" type="text"  class="form-control validate[required] input-md">
 
                             </div>
+
                         </div>
 
 
-
-                        <!-- Text input-->
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="start">วันที่เริ่ม</label>  
-                            <div class="col-md-4">
-                                <input id="start" name="start_time" value="{{ $activity->start_time }}" type="text" placeholder="" class="  singledatetime-picker  form-control input-md">
+                            <label class="col-md-4 control-label" for="name">Task แรก</label>  
+                            <div class="col-md-6">
+                                <input id="name" name="task_name" type="text"  class="form-control validate[required] input-md">
 
                             </div>
-                        </div>
 
-                        <!-- Text input-->
+                        </div>
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="stop">วันที่สิ้นสุด</label>  
-                            <div class="col-md-4">
-                                <input id="stop" name="stop_time" value="{{ $activity->stop_time }}"type="text" placeholder="" class="  singledatetime-picker form-control input-md">
 
-                            </div>
-                        </div>
-                    <div class="form-group">
-                            <label class="col-md-4 control-label" for="stop">วันที่เสร็จริง</label>  
-                            <div class="col-md-4">
-                                <input id="stop" name="completed_at" value="{{ $activity->completed_at }}"type="text" placeholder="" class=" singledatetime-picker form-control input-md">
-
+                            <label class="col-md-4 control-label" for="name">คาดการช่วงเวลาที่ทำ</label>  
+                            <div class="col-md-6">
+                                <div class="input-daterange input-group" id="datepicker">
+                                    <input type="text" class="input-sm form-control validate[required]" name="task_start" />
+                                    <span class="input-group-addon">ถึง</span>
+                                    <input type="text" class="input-sm form-control validate[required]" name="task_finish" />
+                                </div>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="col-md-4 control-label" for="stop">สถานะ</label>  
-                            <div class="col-md-4">
-                                {!! Form::select('status',['รอ'=>'รอ','เสร็จแล้ว'=>'เสร็จแล้ว','ยังไม่เสร็จ'=>'ยังไม่เสร็จ'],$activity->status,['class'=>'form-control chosen'])!!}
+                            <label class="col-md-4 control-label" for="name">item of Task</label>  
+                            <div class="col-md-3">
+                                <input id="item_of_task" name="item_of_task" type="text"  class="form-control validate[required] input-md">
+
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-4 control-label" for="stop">ให้ทำได้</label>  
-                            <div class="col-md-4">
-                                {!! Form::select('approve',['รอ'=>'รอ','อนุมัติ'=>'อนุมัติ','ไม่อนุมัติ'=>'ไม่อนุมัติ'],$activity->approve,['class'=>'form-control chosen'])!!}
-                            </div>
+
                         </div>
 
-                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">ผู้รับผิดชอบ</label>  
+                            <div class="col-md-3">
+                                <?php $user = App\User::where('project_id', Auth::user()->project_id)
+                                                ->where('role', 'student')->lists('first_name', 'id')
+                                ?>
+                                {!! Form::select('responsible',$user,'',['class'=>'form-control chosen','id'=>'reponsible']) !!}
+
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="name">ต้องรองานอื่นไหม?</label>  
+                            <div class="col-md-3">
+                                <?php
+                                $user = App\Task::where('project_id', Auth::user()->project_id)
+                                        ->lists('name', 'id')
+                                ?>
+                                {!! Form::select('dependent_on[]',$user,'',['class'=>'form-control chosen','multiple']) !!}
+
+                            </div>
+
+                        </div>
+
+
+
+
                         <div class="form-group">
 
-                            <div class="col-md-offset-4 col-md-4">
-                                <button id="singlebutton" name="singlebutton" class="btn btn-primary">บันทึก</button>
+                            <label class="col-md-4 control-label" for="name"></label>  
+                            <div class="col-md-6">
+                                {!! Form::submit('บันทึก',['class'=>'btn btn-primary']) !!}
+
                             </div>
-                        </div>
+                        </div>          
 
                     </fieldset>
                     </form>
-
                 </div>
             </div>
         </div>
     </div>
 </div>
+</div>
 @endsection
 @section('specific_script')
 <script type="text/javascript">
-    $("#student-select").chosen({'max_selected_options': 2});
-    $("#coadviser-select").chosen({'placeholder_text_multiple': 'เลือกที่ปรึกษาร่วม'});
-    $(document).ready(function () {
+    // $('.daterangepicker1').daterangepicker();
+    $("#appoint_group").chosen();
+    $('#datepicker').datepicker({
+        format: "yyyy-mm-dd",
+        language: "th",
+        todayHighlight: true,
+//        @if($project)
+//        startDate: "{!! $project->start !!}",
+//        endDate: "{!! $project->finish !!}",
+//        @endif
+    });
+    $('.chosen-select').chosen(); // สั่งให้ chosen ทำงานโดยเป้าหมายเป็น คลาส chosen-select
 
-    })
+    $('#project').change(function () { // เมื่อไอดี pak ถูกเลือก
+        var value = $("#project").val(); // เราก็จะดึงค่ามา
+
+        $.ajax({// จากนั้นก็สร้าง ajax
+            type: 'GET', // ชนิดของ http เป็น get
+            url: "{!! route('selectuser')!!}", // url ที่จะยิงไป
+            data: {id: value}, // ค่าที่จะส่งไป 
+            success: function (data) { // ถ้าสำเร็จ
+                $('#datepicker').datepicker({'setStartDate':data.start,'setEndDate':data.finish}); // ตั้งค่าระยะของการเลือกวันใหม่ ตามค่าทของดรอบดาวน์
+                $('#reponsible').find('option') // ทำการค้นหา ตัว option ของ dropdown province
+                        .remove() // ลบ option ทิ้ง
+                        .end() // ใช้ reset กลับไปตอนที่ยังไม่ลบ option ครับ 
+                        .append(data.dropdown) // เอาค่าที่ได้จาก ฐานข้อมูลใส่
+                        .trigger('chosen:updated'); // สั่งให้ chosen อัพเดท dropdown
+
+            }
+        });
+    });
 </script>
 
 @stop
-

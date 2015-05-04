@@ -42,8 +42,11 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 // In your User model - 1 User has Many Notifications
 public function notifications()
 {
-    return $this->hasMany('Notification');
+    return $this->hasMany('\App\Notification');
 }
-
+public function project()
+{
+    return $this->belongsTo('\App\Project','project_id');
+}
  
 }

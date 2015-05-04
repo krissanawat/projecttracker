@@ -81,7 +81,8 @@ class ProjectController extends Controller {
         if (Request::isMethod('post')) {
             // ddd(Input::all());
             $project = Project::create(Input::all());
-           
+             $user =  User::find(Auth::user()->id);
+             $user->update(['project_id'=>$project->id]);
             if (Input::has('student')):
                 $student = User::whereIn('id', Input::get('student'));
                 $student->update(['project_id' => $project->id]);
@@ -110,8 +111,8 @@ class ProjectController extends Controller {
 
     public function edit($id) {
         $projects = Project::find($id);
-        $students = User::where('role', 'student')->whereNotNull('project_id')->get();
-
+        $students = DB::table('users')->where('role', 'student')->where('project_id',$id)->get();
+//   ddd($students);
         $dropdown = '';
         foreach ($students as $key => $student) {
             if ($projects->id == $student->project_id) {
@@ -120,18 +121,21 @@ class ProjectController extends Controller {
                 $dropdown .= "<option value='$student->id'>" . $student->first_name . "</option>";
             }
         }
-        // ddd($dropdown);
+//         ddd($dropdown);
         return view('project.edit')->with('projects', $projects)->with('dropdown', $dropdown);
     }
 
     public function update() {
-
+        // ddd(Auth::user()->id);
         $projects = Project::find(Input::get('id'));
 
         DB::table('users')->where('project_id', Input::get('id'))
+        ->whereNotIn('id',[Auth::user()->id])
                 ->update(['project_id' => 0]); // เปลี่ยนข้อมูลกลับก่อน
-//        ddd(DB::getQueryLog());
-        User::where('id', Input::get('secondary_adviser_id'))->update(['project_id' => $projects->id]);
+
+
+        User::where('id', Input::get('secondary_adviser_id'))
+        ->update(['project_id' => $projects->id]);
         if(Input::has('student')):
              foreach (Input::get('student') as $key => $student) { // แล้วค่อยอัพเดทข้อมูลใหม่
             User::where('id', $student)->update(['project_id' => $projects->id]);

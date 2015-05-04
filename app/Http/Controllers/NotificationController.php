@@ -45,7 +45,10 @@ class NotificationController extends Controller {
                     $notification = Notification::where('sender_id',Auth::user()->id)->get();
             
                 } 
-            }$notification = Notification::where('reciver_id',Auth::user()->id)->get();
+                
+            }else{
+                $notification = Notification::where('reciver_id',Auth::user()->id)->get();
+            }
          return view('notification.index')->with('notification',$notification);
 	}
         

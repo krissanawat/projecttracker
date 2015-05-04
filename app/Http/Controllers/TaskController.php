@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Task,
-    Input,
+    Input,Request,
     App\Responsible,
     Redirect;
 
@@ -26,6 +26,13 @@ class TaskController extends Controller {
      */
     public function __construct() {
         $this->middleware('auth');
+    }
+    public function addstatus(){
+       $task = new \App\Task_status;
+       $task->status = Request::get('status');
+       $task->task_id = Request::get('id');
+       $task->save();
+       return redirect()->back()->with('success','เพิ่มสถานะเรียบร้อย');
     }
 
     /**

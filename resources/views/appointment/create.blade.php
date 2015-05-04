@@ -36,8 +36,8 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="start">วันเวลา</label>  
                                 <div class="col-md-4">
-                                    <input id="start" name="due_date" type="text" 
-                                     class="singledatetime-picker form-control input-md">
+                                    <input id="datepicker" name="due_date" type="text" 
+                                     class=" form-control input-md" >
 
                                 </div>
                             </div>
@@ -105,7 +105,12 @@ $user = App\User::where('project_id',Auth::user()->project_id)
 @endsection
 @section('specific_script')
 <script type="text/javascript">
-    
+    $('#datepicker').datepicker({
+    format: "yyyy-mm-dd",
+    language: "th",
+    todayHighlight: true
+   
+});
 $("#appoint_group").chosen();
 </script>
 

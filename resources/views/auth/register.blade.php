@@ -23,37 +23,37 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label">ชื่อ</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="first_name" value="{{ old('firstname') }}">
+                                <input type="text" class="form-control validate[required]" name="first_name" value="{{ old('firstname') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">นามสกุล</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="last_name" value="{{ old('lastname') }}">
+                                <input type="text" class="form-control validate[required]" name="last_name" value="{{ old('lastname') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">E-Mail</label>
                             <div class="col-md-6">
-                                <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input type="email" class="form-control validate[required]" name="email" value="{{ old('email') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">ชื่อผู้ใช้งาน</label>
                             <div class="col-md-6">
-                                <input type="text" class="form-control" name="username" value="{{ old('username') }}">
+                                <input type="text" class="form-control validate[required]" name="username" value="{{ old('username') }}">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">รหัสผ่าน</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="password">
+                                <input type="password" class="form-control validate[required]" name="password">
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-4 control-label">ยืนยันรหัสผ่าน</label>
                             <div class="col-md-6">
-                                <input type="password" class="form-control" name="confirm_password">
+                                <input type="password" class="form-control validate[required]" name="confirm_password">
                             </div>
                         </div>
                         <div id="student-input" style="display:none;">

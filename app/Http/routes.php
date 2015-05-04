@@ -54,6 +54,7 @@ Route::group(['prefix' => 'user'], function() {
 });
 Route::group(['prefix' => 'task'], function() {
     Route::any('/', ['as' => 'task.index', 'uses' => 'TaskController@index']);
+    Route::any('/addstatus', ['as' => 'task.addstatus', 'uses' => 'TaskController@addstatus']);
     Route::any('/create', ['as' => 'task.create', 'uses' => 'TaskController@create']);
     Route::any('/edit/{id}', ['as' => 'task.edit', 'uses' => 'TaskController@edit']);
     Route::any('/update', ['as' => 'task.update', 'uses' => 'TaskController@update']);
@@ -62,9 +63,10 @@ Route::group(['prefix' => 'task'], function() {
 
 Route::group(['prefix' => 'activity'], function() {
     
+    Route::any('/selectuser', ['as' => 'selectuser', 'uses' => 'ActivityController@selectuser']);
     Route::any('/ganttdata', ['as' => 'ganttdata', 'uses' => 'ActivityController@ganttdata']);
     Route::any('/', ['as' => 'activity.index', 'uses' => 'ActivityController@index']);
-    Route::get('/getcreate/{id}', ['as' => 'activity.getcreate', 'uses' => 'ActivityController@getCreate']);
+    Route::get('/getcreate', ['as' => 'activity.getcreate', 'uses' => 'ActivityController@getCreate']);
     Route::post('/postcreate', ['as' => 'activity.postcreate', 'uses' => 'ActivityController@postCreate']);
     
     Route::any('/edit/{id}', ['as' => 'activity.edit', 'uses' => 'ActivityController@edit']);

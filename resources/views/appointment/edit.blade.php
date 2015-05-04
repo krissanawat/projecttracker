@@ -18,7 +18,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="name">หัวข้อ</label>  
                                 <div class="col-md-5">
-                                    <input id="name" name="title" value="{{ $appointment->title}}" type="text" placeholder="" class="form-control input-md">
+                                    <input id="name" name="title" value="{{ $appointment->title}}" type="text" placeholder="" class=" validate[required]form-control input-md">
 
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="detail">รายละเอียด</label>
                                 <div class="col-md-8">                     
-                                    <textarea class="form-control" id="detail" name="detail">{{ $appointment->detail}}</textarea>
+                                    <textarea class="form-control validate[required]" id="detail" name="detail">{{ $appointment->detail}}</textarea>
                                 </div>
                             </div>
 
@@ -35,7 +35,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="start">วันเวลา</label>  
                                 <div class="col-md-4">
-                                    <input id="start" name="due_date" value="{{ $appointment->due_date}}" type="text" placeholder="" class="singledatetime-picker form-control input-md">
+                                    <input id="datepicker" name="due_date" value="{{ $appointment->due_date}}" type="text" placeholder="" class="validate[required] singledatetime-picker form-control input-md">
 
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="stop">สถานที่</label>  
                                 <div class="col-md-4">
-                                    <input id="stop" name="location" value="{{ $appointment->location}}"type="text" placeholder="" class="form-control input-md">
+                                    <input id="stop" name="location" value="{{ $appointment->location}}"type="text" placeholder="" class=" validate[required] form-control input-md">
 
                                 </div>
                             </div>
@@ -109,7 +109,12 @@ $value = ['รอการเข้าพบ'=>'รอการเข้าพ�
 @endsection
 @section('specific_script')
 <script type="text/javascript">
-    
+       $('#datepicker').datepicker({
+    format: "yyyy-mm-dd",
+    language: "th",
+    todayHighlight: true
+   
+});
 $("#appoint_group").chosen();
 </script>
 

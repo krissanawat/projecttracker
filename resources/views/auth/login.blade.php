@@ -24,14 +24,14 @@
 						<div class="form-group">
 							<label class="col-md-4 control-label">อีเมล์</label>
 							<div class="col-md-6">
-								<input type="email" class="form-control" name="email" value="{{ old('email') }}">
+								<input type="email" class="form-control validate[required,custom[email]]" name="email" value="{{ old('email') }}">
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-md-4 control-label">รหัสผ่าน</label>
 							<div class="col-md-6">
-								<input type="password" class="form-control" name="password">
+								<input type="password" class="form-control validate[required]" name="password">
 							</div>
 						</div>
 

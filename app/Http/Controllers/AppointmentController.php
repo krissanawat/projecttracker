@@ -51,10 +51,10 @@ class AppointmentController extends Controller {
             $appointment = Appointment::create(Input::all());
             $users = User::where('role', 'student')->where('project_id', $appointment->project_id)->get();
             if(Auth::user()->role == 'adviser'):
-            $data = ['location'=>$appointment->location,'due_date'=>$appointment->due_date];
+            
             foreach ($users as $user):
-                $this->notification('appointment', 'แจ้งเตือนนัดหมาย ' . $appointment->title, $users->id,'สถานที่นัดพบ '.$appointments->location.
-                        ' เวลา '.$appointments->due_date.' รายละเอียดเพิ่มเติม :'.$appointments->detail);
+                $this->notification('appointment', 'แจ้งเตือนนัดหมาย ' . $appointment->title, $user->id,'สถานที่นัดพบ '.$appointment->location.
+                        ' เวลา '.$appointment->due_date.' รายละเอียดเพิ่มเติม :'.$appointment->detail);
             endforeach;
             endif;
             return Redirect::route('appointment.index')->with('success', 'เพิ่มนัหมายเรียบร้อย');

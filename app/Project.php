@@ -43,4 +43,7 @@ class Project extends Elegant  {
     public function coadviser(){
             return $this->hasMany('App\User','id','secondary_adviser_id');
     }
+    public function activity(){
+        return $this->hasMany('App\Activity','project_id');
+    }
 }

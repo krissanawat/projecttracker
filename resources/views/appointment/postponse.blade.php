@@ -20,7 +20,7 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="name">เหตุผล</label>  
                                 <div class="col-md-5">
-                                    <input id="name" name="reason" type="text" placeholder="" class="form-control input-md">
+                                    <input id="name" name="reason" type="text" placeholder="" class="validate[required] form-control input-md">
 
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                 <label class="col-md-4 control-label" for="start">เลื่อนไปวันที่</label>  
                                 <div class="col-md-4">
                                     <input id="start" name="timetogo" type="text" 
-                                     class="singledatetime-picker form-control input-md">
+                                     class="singledatetime-picker validate[required] form-control input-md">
 
                                 </div>
                             </div>
@@ -40,7 +40,8 @@
                             <div class="form-group">
                                 <label class="col-md-4 control-label" for="stop">สถานที่</label>  
                                 <div class="col-md-4">
-                                    <input id="location" name="location" type="text" placeholder="" class="form-control input-md">
+                                    <input id="location" name="location" type="text" placeholder="" 
+                                    class="validate[required] form-control input-md">
 
                                 </div>
                             </div>
